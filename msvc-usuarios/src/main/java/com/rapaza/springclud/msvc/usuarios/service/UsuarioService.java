@@ -1,6 +1,6 @@
 package com.rapaza.springclud.msvc.usuarios.service;
 
-import com.rapaza.springclud.msvc.usuarios.models.entity.Usuario;
+import com.rapaza.springclud.msvc.usuarios.entity.Usuario;
 
 import java.util.List;
 import java.util.Optional;

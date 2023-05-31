@@ -1,6 +1,6 @@
 package com.rapaza.springclud.msvc.usuarios.service;
 
-import com.rapaza.springclud.msvc.usuarios.models.entity.Usuario;
+import com.rapaza.springclud.msvc.usuarios.entity.Usuario;
 import com.rapaza.springclud.msvc.usuarios.reporitories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
