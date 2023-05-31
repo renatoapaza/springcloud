@@ -1,7 +1,7 @@
-package com.rapaza.springclud.msvc.usuarios.msvcusuarios.controllers;
+package com.rapaza.springclud.msvc.usuarios.controllers;
 
-import com.rapaza.springclud.msvc.usuarios.msvcusuarios.models.entity.Usuario;
-import com.rapaza.springclud.msvc.usuarios.msvcusuarios.service.UsuarioService;
+import com.rapaza.springclud.msvc.usuarios.models.entity.Usuario;
+import com.rapaza.springclud.msvc.usuarios.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

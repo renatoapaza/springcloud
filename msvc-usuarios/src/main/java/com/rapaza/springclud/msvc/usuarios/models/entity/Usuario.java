@@ -1,4 +1,4 @@
-package com.rapaza.springclud.msvc.usuarios.msvcusuarios.models.entity;
+package com.rapaza.springclud.msvc.usuarios.models.entity;
 
 import jakarta.persistence.*;
 

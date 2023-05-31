@@ -1,13 +1,13 @@
-package com.rapaza.springclud.msvc.usuarios.msvcusuarios;
+package com.rapaza.springclud.msvc.usuarios;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MsvcUsuariosApplication {
+public class MsvcCursosApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MsvcUsuariosApplication.class, args);
+		SpringApplication.run(MsvcCursosApplication.class, args);
 	}
 
 }

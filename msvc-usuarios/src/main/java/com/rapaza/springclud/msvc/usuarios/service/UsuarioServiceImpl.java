@@ -1,7 +1,7 @@
-package com.rapaza.springclud.msvc.usuarios.msvcusuarios.service;
+package com.rapaza.springclud.msvc.usuarios.service;
 
-import com.rapaza.springclud.msvc.usuarios.msvcusuarios.models.entity.Usuario;
-import com.rapaza.springclud.msvc.usuarios.msvcusuarios.reporitories.UsuarioRepository;
+import com.rapaza.springclud.msvc.usuarios.models.entity.Usuario;
+import com.rapaza.springclud.msvc.usuarios.reporitories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
