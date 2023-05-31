@@ -1,4 +1,4 @@
-package com.rapaza.springclud.msvc.usuarios;
+package com.rapaza.springclud.msvc.cursos;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

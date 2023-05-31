@@ -1,4 +1,4 @@
-package com.rapaza.springclud.msvc.usuarios.entity;
+package com.rapaza.springclud.msvc.cursos.entity;
 
 import jakarta.persistence.*;
 
