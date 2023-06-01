@@ -10,7 +10,13 @@ public interface UsuarioService {
 
     Optional<Usuario> porId(Long id);
 
+    List<Usuario> listarPorIds(Iterable<Long> ids);
+
     Usuario guadar(Usuario usuario);
 
     void eliminar(Long id);
+
+    Optional<Usuario> porEmail(String email);
+
+    boolean existePorEmail(String email);
 }
