@@ -1,6 +1,9 @@
 package com.rapaza.springclud.msvc.cursos.service;
 
-import com.rapaza.springclud.msvc.cursos.entity.Curso;
+import com.rapaza.springclud.msvc.cursos.clients.UsuarioClienteRest;
+import com.rapaza.springclud.msvc.cursos.models.Usuario;
+import com.rapaza.springclud.msvc.cursos.models.entity.Curso;
+import com.rapaza.springclud.msvc.cursos.models.entity.CursoUsuario;
 import com.rapaza.springclud.msvc.cursos.reposiory.CursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,11 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CursoServiceImpl implements CursoService {
     @Autowired
     private CursoRepository cursoRepository;
+    @Autowired
+    private UsuarioClienteRest usuarioClienteRest;
 
     @Override
     @Transactional(readOnly = true)
@@ -27,6 +33,26 @@ public class CursoServiceImpl implements CursoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Optional<Curso> porIdConUsuarios(Long id) {
+        Optional<Curso> o = cursoRepository.findById(id);
+        if(o.isPresent()){
+            Curso curso = o.get();
+            if(!curso.getCursosUsuarios().isEmpty()){
+
+                List<Long> ids = curso.getCursosUsuarios().stream().map(CursoUsuario::getId).collect(Collectors.toList());
+
+                List<Usuario> usuarios = usuarioClienteRest.obtenerAlumnosPorCurso(ids);
+
+                curso.setUsuarios(usuarios);
+            }
+
+            return Optional.of(curso);
+        }
+        return Optional.empty();
+    }
+
+    @Override
     @Transactional
     public Curso guardar(Curso curso) {
         return cursoRepository.save(curso);
@@ -37,4 +63,76 @@ public class CursoServiceImpl implements CursoService {
     public void eliminar(Long id) {
         cursoRepository.deleteById(id);
     }
+
+    @Override
+    @Transactional
+    public void eliminarCursoUsuarioPorId(Long id) {
+        cursoRepository.eliminarCursoUsuarioPorId(id);
+    }
+
+    @Override
+    @Transactional
+    public Optional<Usuario> asignarUsuario(Usuario usuario, Long cursoId) {
+
+        Optional<Curso> o = cursoRepository.findById(cursoId);
+        if (o.isPresent()) {
+            Usuario usuarioMsvc = usuarioClienteRest.detalle(usuario.getId());
+
+            Curso curso = o.get();
+
+            CursoUsuario cursoUsuario = new CursoUsuario();
+            cursoUsuario.setUsuarioId(usuarioMsvc.getId());
+
+            curso.addCursoUsuario(cursoUsuario);
+            cursoRepository.save(curso);
+
+            return Optional.of(usuarioMsvc);
+
+        }
+
+        return Optional.empty();
+    }
+
+    @Override
+    @Transactional
+    public Optional<Usuario> crearUsuario(Usuario usuario, Long cursoId) {
+        Optional<Curso> o = cursoRepository.findById(cursoId);
+        if (o.isPresent()) {
+            Usuario usuarioNuevoMsvc = usuarioClienteRest.crear(usuario);
+
+            Curso curso = o.get();
+
+            CursoUsuario cursoUsuario = new CursoUsuario();
+            cursoUsuario.setUsuarioId(usuarioNuevoMsvc.getId());
+
+            curso.addCursoUsuario(cursoUsuario);
+            cursoRepository.save(curso);
+
+            return Optional.of(usuarioNuevoMsvc);
+
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    @Transactional
+    public Optional<Usuario> eliminarUsuario(Usuario usuario, Long cursoId) {
+        Optional<Curso> o = cursoRepository.findById(cursoId);
+        if (o.isPresent()) {
+            Usuario usuarioMsvc = usuarioClienteRest.detalle(usuario.getId());
+
+            Curso curso = o.get();
+
+            CursoUsuario cursoUsuario = new CursoUsuario();
+            cursoUsuario.setUsuarioId(usuarioMsvc.getId());
+
+            curso.removeCursoUsuario(cursoUsuario);
+            cursoRepository.save(curso);
+
+            return Optional.of(usuarioMsvc);
+
+        }
+        return Optional.empty();
+    }
+
 }
